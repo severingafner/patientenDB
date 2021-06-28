@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace patientDB
 {
-    public static class DBConnection
+    public static class Connection
     {
         static string globalDatabaseConnection = "Data Source = DESKTOP-8K0P1B4\\SQLEXPRESS;" + "Initial Catalog = PatientenDB;" + "Integrated Security=SSPI;";
         
