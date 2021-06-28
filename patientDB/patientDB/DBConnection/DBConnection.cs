@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace patientDB.DBConnection
+namespace patientDB
 {
     public static class DBConnection
     {
