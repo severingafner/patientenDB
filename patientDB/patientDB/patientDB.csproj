@@ -43,6 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBConnection\Connection.cs" />
+    <Compile Include="DBConnection\DBConnection.cs" />
+    <Compile Include="Model\Attribute.cs" />
+    <Compile Include="Model\Node.cs" />
+    <Compile Include="Model\Patient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

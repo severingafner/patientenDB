@@ -1,0 +1,2 @@
+D:\TEko\patientDB\patientDB\patientDB\obj\Debug\patientDB.csprojAssemblyReference.cache
+D:\TEko\patientDB\patientDB\patientDB\obj\Debug\patientDB.csproj.CoreCompileInputs.cache
