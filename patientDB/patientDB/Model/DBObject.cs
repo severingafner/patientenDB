@@ -8,28 +8,31 @@ using patientDB.DBConnection;
 
 namespace patientDB
 {
-    class DBObject
+    class DBObject: IDBObject
     {
-        public KeyValuePair<Attribute, Node>[] data { get; set; }
+        public int? id { get; set; }
+        public string objectValue { get; set; }
+        public Dictionary<Attribute, Node> data { get; set; }
 
         public void insert ()
         {
-            SqlConnection conn = DBConnection.LocalInstance();
+            SqlConnection conn = Connection.LocalInstance();
             //Commandobjekt bilden
-            SqlCommand insertCommand = new SqlCommand(my_sql, conn);
+            SqlCommand insertCommand = new SqlCommand("INSERT INTO Object (objectValue) output INSERTED.ID VALUES (@value)", conn);
+            insertCommand.Parameters.Add("@value", System.Data.SqlDbType.VarChar, 300).Value = objectValue;
+
 
             try
             {
                 //Connection öffnen
                 conn.Open();
 
-                //Befehl abschicken
-                insertCommand.ExecuteNonQuery();
-
+                id = (int)insertCommand.ExecuteScalar();
             }
             catch (Exception ex)
             {
                 //Fehlermeldung
+                Console.WriteLine(ex.Message);
             }
             finally
             {
