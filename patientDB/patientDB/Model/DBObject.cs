@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace patientDB.Model
 {
-    class Patient
+    class DBObject
     {
         public KeyValuePair<Attribute, Node>[] data { get; set; }
 
-        public void getPatientData()
+        public void getDBObjectData()
         {
 
         }
