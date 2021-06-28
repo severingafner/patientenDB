@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace patientDB.DBConnection
 {
-    class DBConnection
+    public class DBConnection
     {
-        private DBConnection instance;
-        protected DBConnection()
-        {
-
-        }
-        public DBConnection Instance()
+        static DBConnection instance;
+        public static  DBConnection Instance()
         {
             if (instance == null)
             {
