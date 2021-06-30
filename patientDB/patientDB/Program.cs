@@ -10,12 +10,16 @@ namespace patientDB
     {
         static void Main(string[] args)
         {
-            DBObject readObject = ReadFromDB.Read(1, Connection.LocalInstance());
+           // DBObject writeObject = new DBObject("test");
+            //int newObjectId = WriteOnDB.Write(writeObject, Connection.LocalInstance());
+            DBObject readObject = ReadFromDB.Read(6, Connection.LocalInstance());
+            Console.WriteLine("DBObject aus DB: " + readObject.value);
             foreach (KeyValuePair<Attribute, Node> row in readObject.data)
             {
-                Console.WriteLine(readObject.value + ' ' + row.Key.value + ' ' + row.Value.value);
+                Console.WriteLine(row.Key.value + ' ' + row.Value.value);
             }
             Console.ReadLine();
+
         }
     }
 }

@@ -45,16 +45,19 @@ namespace patientDB
             DBObject readDbObject =  new DBObject(Convert.ToString(objectNameTable.Rows[0]["objectValue"]));
             foreach (DataRow row in dataTable.Rows)
             {
-                int attributeId = Convert.ToInt32(row["attributeId"]);
-                // If we already have that attribute in the dictionary, use it's reference instead of creating a new one
-                Attribute attribute = GetAttributeById(data, attributeId);
-                if (attribute == null)
+                if (row["attributeId"] != DBNull.Value)
                 {
-                    attribute = new Attribute(attributeId, Convert.ToString(row["attributeValue"]));
-                }
+                    int attributeId = Convert.ToInt32(row["attributeId"]);
+                    // If we already have that attribute in the dictionary, use it's reference instead of creating a new one
+                    Attribute attribute = GetAttributeById(data, attributeId);
+                    if (attribute == null)
+                    {
+                        attribute = new Attribute(attributeId, Convert.ToString(row["attributeValue"]));
+                    }
 
-                Node node = new Node(Convert.ToString(row["nodeValue"]));
-                data.Add(attribute, node);
+                    Node node = new Node(Convert.ToString(row["nodeValue"]));
+                    data.Add(attribute, node);
+                }
             }
             readDbObject.data = data;
             return readDbObject;
