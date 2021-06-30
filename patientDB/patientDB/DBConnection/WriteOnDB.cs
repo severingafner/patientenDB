@@ -57,7 +57,7 @@ namespace patientDB
 
         private static int InsertNode (int dbObjectId, int attributeId, Node node, SqlConnection conn)
         {
-            SqlCommand insertCommand = new SqlCommand("INSERT INTO Note (idObject, idAttribute, nodeValue) output INSERTED.nodeid VALUES (@idObject, @idAttribute, @nodeValue)", conn);
+            SqlCommand insertCommand = new SqlCommand("INSERT INTO Node (idObject, idAttribute, nodeValue) output INSERTED.nodeid VALUES (@idObject, @idAttribute, @nodeValue)", conn);
             insertCommand.Parameters.Add("@idObject", System.Data.SqlDbType.VarChar, 300).Value = dbObjectId;
             insertCommand.Parameters.Add("@idAttribute", System.Data.SqlDbType.VarChar, 300).Value = attributeId;
             insertCommand.Parameters.Add("@nodeValue", System.Data.SqlDbType.VarChar, 300).Value = node.value;

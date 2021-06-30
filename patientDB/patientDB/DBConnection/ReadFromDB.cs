@@ -14,12 +14,12 @@ namespace patientDB
         private static DataSet GetDataFromDB(int dbObjectId, SqlConnection conn)
         {
             DataSet dataSet = new DataSet();
-            string selectObjectQuery = "SELECT objectValue FROM object WHERE objectId = " + dbObjectId;
+            string selectObjectQuery = "SELECT objectId, objectValue FROM object WHERE objectId = " + dbObjectId;
             SqlDataAdapter dbObjectAdapter = new SqlDataAdapter(selectObjectQuery, conn);
             dbObjectAdapter.Fill(dataSet, "objectValue");
 
 
-            string selectQuery = "SELECT attributeId, attributeValue, nodeValue FROM object LEFT JOIN Node ON object.objectId = Node.idObject LEFT JOIN Attribute ON Node.idAttribute = Attribute.attributeId WHERE objectId = " + dbObjectId;
+            string selectQuery = "SELECT attributeId, attributeValue, nodeId, nodeValue FROM object LEFT JOIN Node ON object.objectId = Node.idObject LEFT JOIN Attribute ON Node.idAttribute = Attribute.attributeId WHERE objectId = " + dbObjectId;
             SqlDataAdapter dataAdapter = new SqlDataAdapter(selectQuery, conn);
             dataAdapter.Fill(dataSet, "data");
             return dataSet;
@@ -42,8 +42,8 @@ namespace patientDB
             DataTable objectNameTable = dataSet.Tables["objectValue"];
             DataTable dataTable = dataSet.Tables["data"];
             Dictionary <Attribute, Node> data = new Dictionary<Attribute, Node>();
-            DBObject readDbObject =  new DBObject(Convert.ToString(objectNameTable.Rows[0]["objectValue"]));
-            foreach (DataRow row in dataTable.Rows)
+            DBObject readDbObject =  new DBObject(Convert.ToInt32(objectNameTable.Rows[0]["objectId"]), Convert.ToString(objectNameTable.Rows[0]["objectValue"]));
+            foreach (DataRow row in dataTable.Rows) 
             {
                 if (row["attributeId"] != DBNull.Value)
                 {
@@ -55,7 +55,7 @@ namespace patientDB
                         attribute = new Attribute(attributeId, Convert.ToString(row["attributeValue"]));
                     }
 
-                    Node node = new Node(Convert.ToString(row["nodeValue"]));
+                    Node node = new Node(Convert.ToInt32(row["nodeId"]), Convert.ToString(row["nodeValue"]));
                     data.Add(attribute, node);
                 }
             }
