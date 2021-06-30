@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<root>
+	<Patient>
+		<FirstName>Max</FirstName>
+		<LastName>Verstappen</LastName>
+		<Age>23</Age>
+	</Patient>
+	<Patient>
+		<FirstName>Freddy</FirstName>
+		<LastName>Mercury</LastName>
+	</Patient>
+	<Doctor>
+		<Name>Oetker</Name>
+		<Field>HNO</Field>
+	</Doctor>
+</root>
