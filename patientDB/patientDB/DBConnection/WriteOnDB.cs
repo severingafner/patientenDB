@@ -7,18 +7,17 @@ namespace patientDB
 {
     static class WriteOnDB
     {
-       private  static SqlConnection conn = Connection.LocalInstance();
-        public static void write (DBObject dbObjectToWrite)
+        public static void write (DBObject dbObjectToWrite, SqlConnection conn)
         {
             try
             {
                 conn.Open();
 
-                int dbObjectId = InsertDbObject(dbObjectToWrite);
+                int dbObjectId = InsertDbObject(dbObjectToWrite, conn);
                 foreach (KeyValuePair<Attribute, Node> row in dbObjectToWrite.data)
                 {
-                    int attributeId = InsertAttribute(row.Key);
-                    InsertNode(dbObjectId, attributeId, row.Value);
+                    int attributeId = InsertAttribute(row.Key, conn);
+                    InsertNode(dbObjectId, attributeId, row.Value, conn);
                 }
             }
             catch (Exception ex)
@@ -31,20 +30,20 @@ namespace patientDB
             }
         }
            
-        private static int InsertDbObject (DBObject dbObject)
+        private static int InsertDbObject (DBObject dbObject, SqlConnection conn)
         {
             SqlCommand insertCommand = new SqlCommand("INSERT INTO Object (objectValue) output INSERTED.ID VALUES (@value)", conn);
             insertCommand.Parameters.Add("@value", System.Data.SqlDbType.VarChar, 300).Value = dbObject.value;
             return (int)insertCommand.ExecuteScalar();
         }
-        private static int InsertAttribute (Attribute attribute)
+        private static int InsertAttribute (Attribute attribute, SqlConnection conn)
         {
             SqlCommand insertCommand = new SqlCommand("INSERT INTO Attribute (attributeValue) output INSERTED.ID VALUES (@value)", conn);
             insertCommand.Parameters.Add("@value", System.Data.SqlDbType.VarChar, 300).Value = attribute.value;
             return (int)insertCommand.ExecuteScalar();
         }
 
-        private static int InsertNode (int dbObjectId, int attributeId, Node node)
+        private static int InsertNode (int dbObjectId, int attributeId, Node node, SqlConnection conn)
         {
             SqlCommand insertCommand = new SqlCommand("INSERT INTO Note (idObject, idAttribute, nodeValue) output INSERTED.ID VALUES (@idObject, @idAttribute, @nodeValue)", conn);
             insertCommand.Parameters.Add("@idObject", System.Data.SqlDbType.VarChar, 300).Value = dbObjectId;
