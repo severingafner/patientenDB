@@ -14,6 +14,9 @@ namespace patientDB
         public int? idObject { set;  get; }
         public string value { get; set; }
 
-
+        public Node(string value)
+        {
+            this.value = value;
+        }
     }
 }
