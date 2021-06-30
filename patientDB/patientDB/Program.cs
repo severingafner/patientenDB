@@ -12,14 +12,29 @@ namespace patientDB
         {
            // DBObject writeObject = new DBObject("test");
             //int newObjectId = WriteOnDB.Write(writeObject, Connection.LocalInstance());
-            DBObject readObject = ReadFromDB.Read(6, Connection.LocalInstance());
-            Console.WriteLine("DBObject aus DB: " + readObject.value);
-            foreach (KeyValuePair<Attribute, Node> row in readObject.data)
+            //DBObject readObject = ReadFromDB.Read(6, Connection.LocalInstance());
+            //Console.WriteLine("DBObject aus DB: " + readObject.value);
+            //foreach (KeyValuePair<Attribute, Node> row in readObject.data)
+            //{
+            //    Console.WriteLine(row.Key.value + ' ' + row.Value.value);
+            //}
+            //Console.ReadLine();
+            try
             {
-                Console.WriteLine(row.Key.value + ' ' + row.Value.value);
-            }
-            Console.ReadLine();
+                foreach (DBObject dbObj in ReadFile.Read())
+                {
+                    WriteOnDB.Write(dbObj, Connection.LocalInstance());
+                }
+                Console.ReadLine();
 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing on DB");
+                Console.WriteLine(e);
+                Console.ReadLine();
+
+            }
         }
     }
 }

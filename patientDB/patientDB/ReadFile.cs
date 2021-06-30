@@ -10,7 +10,7 @@ namespace patientDB
 {
     class ReadFile
     {
-        public static void Read()
+        public static List<DBObject> Read()
         {
             Console.WriteLine("Enter Path to file:");
 
@@ -58,6 +58,7 @@ namespace patientDB
 
                     allObj.Add(obj);
                 }
+                return allObj;
             }
             catch (FileNotFoundException e)
             {
@@ -65,6 +66,7 @@ namespace patientDB
                 Console.WriteLine(e);
                 Console.ReadLine();
             }
+            return null;
         }
     }
 }
