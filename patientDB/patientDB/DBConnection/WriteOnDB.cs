@@ -16,8 +16,13 @@ namespace patientDB
                 int dbObjectId = InsertDbObject(dbObjectToWrite, conn);
                 foreach (KeyValuePair<Attribute, Node> row in dbObjectToWrite.data)
                 {
-                    int attributeId = InsertAttribute(row.Key, conn);
-                    InsertNode(dbObjectId, attributeId, row.Value, conn);
+                    // if the attribute has an id, it was already created.
+                    if (row.Key.id == null)
+                    {
+                        row.Key.id = InsertAttribute(row.Key, conn);
+                    }
+                    // always create a new Node
+                    InsertNode(dbObjectId, (int)row.Key.id, row.Value, conn);
                 }
             }
             catch (Exception ex)
