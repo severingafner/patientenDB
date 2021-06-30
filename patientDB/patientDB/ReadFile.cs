@@ -21,14 +21,13 @@ namespace patientDB
 
                 XDocument doc = XDocument.Load(pathToFile);
 
-                List<DBObject> all = new List<DBObject>();
+                List<DBObject> allObj = new List<DBObject>();
 
                 foreach (XElement el in doc.Descendants("Patient"))
                 {
 
-                    DBObject obj = new DBObject
+                    DBObject obj = new DBObject(el.Name.ToString())
                     {
-                        value = el.Name.ToString(),
                         data = new Dictionary<Attribute, Node>()
                     };
 
@@ -39,15 +38,14 @@ namespace patientDB
                         obj.data.Add(a, n);
                     }
 
-                    all.Add(obj);
+                    allObj.Add(obj);
                 }
 
                 foreach (XElement el in doc.Descendants("Doctor"))
                 {
 
-                    DBObject obj = new DBObject
+                    DBObject obj = new DBObject(el.Name.ToString())
                     {
-                        value = el.Name.ToString(),
                         data = new Dictionary<Attribute, Node>()
                     };
 
@@ -58,10 +56,8 @@ namespace patientDB
                         obj.data.Add(a, n);
                     }
 
-                    all.Add(obj);
+                    allObj.Add(obj);
                 }
-
-                Console.ReadLine();
             }
             catch (FileNotFoundException e)
             {

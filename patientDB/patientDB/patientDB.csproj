@@ -52,6 +52,7 @@
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\DBObject.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ReadFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
