@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using patientDB.DBConnection;
 
 namespace patientDB
 {
@@ -22,7 +18,6 @@ namespace patientDB
             //Commandobjekt bilden
             SqlCommand insertCommand = new SqlCommand("INSERT INTO Object (objectValue) output INSERTED.ID VALUES (@value)", conn);
             insertCommand.Parameters.Add("@value", System.Data.SqlDbType.VarChar, 300).Value = objectValue;
-
 
             try
             {
