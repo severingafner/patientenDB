@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace patientDB
 {
@@ -10,18 +11,13 @@ namespace patientDB
     {
         static void Main(string[] args)
         {
-           // DBObject writeObject = new DBObject("test");
-            //int newObjectId = WriteOnDB.Write(writeObject, Connection.LocalInstance());
-            //DBObject readObject = ReadFromDB.Read(6, Connection.LocalInstance());
-            //Console.WriteLine("DBObject aus DB: " + readObject.value);
-            //foreach (KeyValuePair<Attribute, Node> row in readObject.data)
-            //{
-            //    Console.WriteLine(row.Key.value + ' ' + row.Value.value);
-            //}
-            //Console.ReadLine();
+            Console.WriteLine("Enter Path to file:");
+            string pathToFile = Console.ReadLine();
+
+            XDocument doc = XDocument.Load(pathToFile);
             try
             {
-                foreach (DBObject dbObj in ReadFile.Read())
+                foreach (DBObject dbObj in ReadFile.Read(doc))
                 {
                     WriteOnDB.Write(dbObj, Connection.LocalInstance());
                 }
