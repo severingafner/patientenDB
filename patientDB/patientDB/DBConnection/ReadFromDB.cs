@@ -14,14 +14,14 @@ namespace patientDB
         private static DataSet GetDataFromDB(int dbObjectId, SqlConnection conn)
         {
             DataSet dataSet = new DataSet();
-            string selectObjectQuery = "SELECT objectValueFROM object WHERE objectId = " + dbObjectId;
+            string selectObjectQuery = "SELECT objectValue FROM object WHERE objectId = " + dbObjectId;
             SqlDataAdapter dbObjectAdapter = new SqlDataAdapter(selectObjectQuery, conn);
-            dbObjectAdapter.Fill(dataSet);
+            dbObjectAdapter.Fill(dataSet, "objectValue");
 
 
             string selectQuery = "SELECT attributeId, attributeValue, nodeValue FROM object LEFT JOIN Node ON object.objectId = Node.idObject LEFT JOIN Attribute ON Node.idAttribute = Attribute.attributeId WHERE objectId = " + dbObjectId;
             SqlDataAdapter dataAdapter = new SqlDataAdapter(selectQuery, conn);
-            dataAdapter.Fill(dataSet);
+            dataAdapter.Fill(dataSet, "data");
             return dataSet;
         }
 
@@ -39,9 +39,9 @@ namespace patientDB
 
         private static DBObject ParseDataToDBObject (DataSet dataSet)
         {
-            DataTable objectNameTable = dataSet.Tables[0];
-            DataTable dataTable = dataSet.Tables[0];
-            Dictionary<Attribute, Node> data = new Dictionary<Attribute, Node>();
+            DataTable objectNameTable = dataSet.Tables["objectValue"];
+            DataTable dataTable = dataSet.Tables["data"];
+            Dictionary <Attribute, Node> data = new Dictionary<Attribute, Node>();
             DBObject readDbObject =  new DBObject(Convert.ToString(objectNameTable.Rows[0]["objectValue"]));
             foreach (DataRow row in dataTable.Rows)
             {
@@ -60,13 +60,13 @@ namespace patientDB
             return readDbObject;
         }
 
-        public static void Read (int dbObjectId, SqlConnection conn)
+        public static DBObject Read (int dbObjectId, SqlConnection conn)
         {
             try
             {
                 conn.Open();
                 DataSet dataSet = GetDataFromDB(dbObjectId, conn);
-                DBObject dbObject = ParseDataToDBObject(dataSet);
+                return ParseDataToDBObject(dataSet);
 
             }
             catch (Exception ex)
@@ -77,6 +77,7 @@ namespace patientDB
             {
                 conn.Close();
             }
+            return null;
         }
     }
 }
