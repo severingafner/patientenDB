@@ -10,38 +10,15 @@ namespace patientDB
 {
     class ReadFile
     {
-        public static List<DBObject> Read()
+        public static List<DBObject> Read(XDocument doc)
         {
-            Console.WriteLine("Enter Path to file:");
 
             try
             {
 
-                string pathToFile = Console.ReadLine();
-
-                XDocument doc = XDocument.Load(pathToFile);
-
                 List<DBObject> allObj = new List<DBObject>();
 
-                foreach (XElement el in doc.Descendants("Patient"))
-                {
-
-                    DBObject obj = new DBObject(el.Name.ToString())
-                    {
-                        data = new Dictionary<Attribute, Node>()
-                    };
-
-                    foreach (XElement child in el.Elements())
-                    {
-                        Attribute a = new Attribute(child.Name.ToString());
-                        Node n = new Node(child.Value.ToString());
-                        obj.data.Add(a, n);
-                    }
-
-                    allObj.Add(obj);
-                }
-
-                foreach (XElement el in doc.Descendants("Doctor"))
+                foreach (XElement el in doc.Root.Elements())
                 {
 
                     DBObject obj = new DBObject(el.Name.ToString())
