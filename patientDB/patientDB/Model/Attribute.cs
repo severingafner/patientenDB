@@ -11,7 +11,11 @@ namespace patientDB
     {
         public string value { get; set; }
         public int? id { get; set; }
-
+        public Attribute(int id, string value)
+        {
+            this.id = id;
+            this.value = value;
+        }
         public Attribute(string value)
         {
             this.value = value;

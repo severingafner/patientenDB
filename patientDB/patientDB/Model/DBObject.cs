@@ -9,5 +9,9 @@ namespace patientDB
         public string value { get; set; }
         public Dictionary<Attribute, Node> data { get; set; }
         public int? id { get; set; }
+        public DBObject (string value)
+        {
+            this.value = value;
+        }
     }
 }

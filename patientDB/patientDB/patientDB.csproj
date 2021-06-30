@@ -43,8 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBConnection\Connection_OLD.cs" />
     <Compile Include="DBConnection\Connection.cs" />
+    <Compile Include="DBConnection\ReadFromDB.cs" />
     <Compile Include="DBConnection\SyncWithGlobal.cs" />
     <Compile Include="DBConnection\WriteOnDB.cs" />
     <Compile Include="Model\Attribute.cs" />
