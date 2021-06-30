@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace patientDB
+namespace patientDB.DBConnection
 {
-    public interface IDBObject
+    static class SyncWithGlobal
     {
-        int? id { get; set; }
-        string value { get; set; }
+        public static void SyncDatabases ()
+        {
+        }
     }
 }

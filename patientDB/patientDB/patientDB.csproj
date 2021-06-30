@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="DBConnection\Connection_OLD.cs" />
     <Compile Include="DBConnection\Connection.cs" />
+    <Compile Include="DBConnection\SyncWithGlobal.cs" />
+    <Compile Include="DBConnection\WriteOnDB.cs" />
     <Compile Include="Model\Attribute.cs" />
     <Compile Include="Model\IDBObject.cs" />
     <Compile Include="Model\Node.cs" />
